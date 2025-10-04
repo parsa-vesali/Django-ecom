@@ -1,0 +1,138 @@
+ {% extends "base.html" %}
+{% load static %}
+
+{% block title %}شاپیکس | سبد خرید {% endblock %}
+
+   
+{% block header %}
+    <!-- Header -->
+    <header class="relative w-full flex items-center justify-center overflow-hidden">
+        <!-- BG -->
+        <div
+            class="absolute top-20 left-20 w-[28rem] h-[28rem] bg-indigo-400 rounded-full mix-blend-multiply filter blur-[180px] opacity-25">
+        </div>
+        <div
+            class="absolute bottom-32 right-32 w-[28rem] h-[28rem] bg-pink-400 rounded-full mix-blend-multiply filter blur-[180px] opacity-25">
+        </div>
+        <div
+            class="absolute top-1/2 left-1/2 w-[30rem] h-[30rem] bg-blue-400 rounded-full mix-blend-multiply filter blur-[200px] opacity-15 -translate-x-1/2 -translate-y-1/2">
+        </div>
+
+        <!-- BG -->
+        <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-gray-50 to-transparent z-10"></div>
+
+        {% include "navbar.html" %}
+    </header>
+{% endblock %}
+
+{% block content %}
+     <!-- shopping cart -->
+     <div class='container mt-32'>
+
+     <section
+            class="flex flex-col lg:flex-row justify-between items-start gap-4 *:rounded-lg *:bg-white *:shadow *:p-4 mt-5">
+            <!-- products -->
+            <div class="w-full lg:w-3/4 flex flex-col gap-y-8 ">
+                <!-- shopping cart header -->
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-x-2">
+                        <h2 class="font-DanaMedium text-xl">سبد خرید</h2>
+                        <p class="text-gray-400">(2 کالا)</p>
+                    </span>
+                    <span class="flex items-center gap-x-1 text-red-600 cursor-pointer">
+                        <p class="mt-1 font-DanaMedium ">حذف همه</p>
+                        <svg class="w-5 h-5">
+                            <use href="#trash"></use>
+                        </svg>
+                    </span>
+                </div>
+                <!-- PRODUCT ITEMS -->
+                <div
+                    class="w-full flex flex-col gap-y-4 *:p-2 lg:*:p-4 ">
+                    <!-- PRODUCT ITEM -->
+                    <div class="w-full flex justify-between relative border-b-2 border-gray-200 ">
+                        <div class="flex flex-col sm:flex-row items-center gap-6">
+                            <!-- IMG AND COUNT BTN -->
+                            <div class="flex w-fit flex-col">
+                              <div class="w-28">
+                                <img src="./images/p1.webp" class="" alt="">
+                              </div>
+                                <button
+                                    class="flex mt-3 items-center justify-between gap-x-1 rounded-lg border border-gray-200 py-1 px-2">
+                                    <svg class="w-4 h-4 increment text-green-600">
+                                        <use href="#plus"></use>
+                                    </svg>
+                                    <input type="number" name="customInput" id="customInput" min="1" max="20" value="1"
+                                        class="custom-input mr-8 text-lg bg-transparent">
+                                    <svg class="w-4 h-4 decrement text-red-500">
+                                        <use href="#minus"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                            <!-- information and name product -->
+                            <div class="flex flex-col gap-y-4">
+                                <h2 class="font-DanaMedium line-clamp-1">
+                                    لپ تاپ 15.3 اینچی اپل مدل  MacBook Air MXD13 2024 LLA-M3-16GB RAM-512GB SSD
+                                </h2>
+                                <ul
+                                    class="space-y-3 *:text-sm text-gray-400 *:flex *:items-center *:gap-x-1.5">
+                                    <li>
+                                        <span class="size-5 bg-blue-500 rounded-full"></span>
+                                        <p>آبی</p>
+                                    </li>
+                                    <li>
+                                        <svg class="w-5 h-5">
+                                            <use href="#shield"></use>
+                                        </svg>
+                                        <p class="mt-1">گارانتی 18 ماهه</p>
+                                    </li>
+                                </ul>
+                                <span class="flex items-center gap-x-1 text-gray-700 font-DanaMedium mt-4">
+                                    <p class="font-DanaMedium text-xl">۱۲۵,۰۰۰,۰۰۰</p>
+                                    <p class="text-lg">تومان</p>
+                                </span>
+                             
+                                <svg class=" flex sm:hidden absolute top-0 left-0 w-5 h-5">
+                                    <use href="#close"></use>
+                                </svg>  
+                            </div>
+                        </div>
+                        
+                    </div>
+                   
+                    
+                </div>
+            </div>
+
+            <!-- PRICE BOX -->
+            <div class="w-full lg:w-1/4 lg:sticky top-5 flex flex-col gap-y-4">
+                <!-- PRICE -->
+                <ul class="*:flex *:items-center *:justify-between space-y-8">
+                    <li>
+                        <p>قیمت کالاها(۱)</p>
+                        <p class="flex gap-x-1 text-gray-600">۱۲۵,۰۰۰,۰۰۰ <span class="hidden xl:flex">تومان</span></p>
+                    </li>
+                    <li>
+                        <p>تخفیف </p>
+                        <p class="font-DanaMedium text-gray-700">۵۰۰,۰۰۰ تومان  </p>
+                    </li>
+                    <li class="border-t-2 border-dashed border-gray-400 pt-8">
+                        <p> مبلغ نهایی  :</p>
+                        <p>۱۱۹,۵۰۰,۰۰۰ تومان</p>
+                    </li>
+                </ul>
+
+                <a href="./checkout.html"
+                    class="w-full mt-4 flex items-center gap-x-1 justify-center bg-blue-500 text-white hover:bg-blue-600 transition-all rounded-lg shadow py-2">
+                    تایید و تکمیل سفارش
+                    <svg class="w-5 h-5">
+                        <use href="#shopping-bag"></use>
+                    </svg>
+                </a>
+
+            </div>
+     </section>
+     </div>
+
+{% endblock %}
+{% include "footer.html" %}

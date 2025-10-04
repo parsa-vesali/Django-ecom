@@ -1,0 +1,157 @@
+<!-- Menu Desktop -->
+        <nav class="fixed hidden md:flex top-5 left-1/2 transform -translate-x-1/2 
+             w-full lg:w-[90%] rounded-xl items-center justify-between 
+             px-4 lg:px-5 py-4 z-20 bg-white shadow">
+
+            <!-- Logo -->
+            <a href="{% url "home" %}" class="text-3xl font-MorabbaBold text-indigo-600">شاپیکس</a>
+
+            <!-- Menu -->
+            <ul class="flex space-x-8 text-gray-700 *:font-DanaMedium *:text-lg ml-5 lg:mr-10 *:py-1.5">
+                <li><a href="{% url "home" %}" class="hover:text-indigo-600">صفحه اصلی</a></li>
+                <li class="relative group">
+                    <div class="flex items-center flex-row gap-x-1">
+                        <a href="#">دسته بندی</a>
+                        <svg class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180">
+                            <use href="#chevron-down"></use>
+                        </svg>
+                    </div>
+                    <!-- Submenu -->
+                    <div
+                        class="absolute bg-white flex flex-col gap-y-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:top-10 transition-all delay-100 top-20 w-52 rounded border-t-2 border-indigo-600 p-5 text-base shadow-md child-hover:text-green-500 child:transition-all">
+                        {% for category in categories %}
+                            <a href="{% url "category" category.name %}">{{category.name}}</a>
+                        {% endfor %}
+                        <a href="{% url 'category' 'all' %}">همه محصولات</a>
+                    </div>
+                </li>
+                <li><a href="#" class="hover:text-indigo-600">درباره ما</a></li>
+                <li><a href="#" class="hover:text-indigo-600">تماس با ما</a></li>
+            </ul>
+
+            <!-- actions -->
+
+            <div class="flex items-center space-x-2">
+               
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="ml-3 text-red-600 hover:underline">
+                        خروج
+                    </a>
+                    <a href="#" class="relative px-3 py-1.5 border border-indigo-600 text-indigo-600 rounded-xl 
+                    hover:bg-indigo-600 hover:text-white transition flex items-center justify-center gap-x-2">
+                    {{ user.username }}
+                    </a>
+                   
+                {% else %}
+                    <a href="{% url 'login' %}" class="relative px-3 py-1.5 border border-indigo-600 text-indigo-600 rounded-xl 
+                    hover:bg-indigo-600 hover:text-white transition flex items-center justify-center gap-x-2">
+                        ورود | ثبت‌نام
+                    </a>
+                {% endif %}
+
+                <a href="{% url "cart_summary" %}" class="flex-center p-2 bg-indigo-600 text-gray-100 rounded-xl relative">
+                    <svg class="size-6">
+                        <use href="#cart"></use>
+                    </svg>
+                    <span class="absolute -top-1 -right-1 flex h-4 w-4">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-600 opacity-75"></span>
+                        <span
+                            class="relative inline-flex rounded-full h-4 w-4 bg-red-500 text-xs pt-1 flex-center text-white">2</span>
+                    </span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- MOBILE NAVBAR -->
+        <nav class="fixed top-0 left-0 right-0 z-50 bg-white flex justify-between items-center md:hidden h-16       shadow-md py-5 px-4">
+            <div>
+                <svg class="w-6 h-6 mobile-menu__open-icon cursor-pointer">
+                    <use href="#bars"></use>
+                </svg>
+            </div>
+            <!-- SIDE BAR MENU -->
+            <div
+                class="mobile-menu fixed -right-64 top-0 bottom-0 w-64 bg-white  z-50 shadow transition-all duration-300 px-4">
+                <!-- HEAADER -->
+                <div class="mt-3 flex items-center justify-between">
+                    <!-- Logo -->
+                    <a href="{% url "home" %}" class="text-2xl font-MorabbaBold text-indigo-600">شاپیکس</a>
+
+                    <svg class="mobile-menu__close-icon w-6 h-6 cursor-pointer">
+                        <use href="#close"></use>
+                    </svg>
+                </div>
+                <!-- BORDER -->
+                <span class="flex w-full border-t  border-gray-200 my-5"></span>
+                <!-- MENU  -->
+                <ul class="flex flex-col gap-y-6 text-zinc-700">
+                    <li>
+                        <a href="{% url "home" %}" class="flex items-center gap-x-2">
+                            <svg class="w-5 h-5">
+                                <use href="#home"></use>
+                            </svg>
+                            صفحه اصلی
+                        </a>
+                    </li>
+                    <li class="">
+                        <div class="open-submenu flex w-full items-center justify-between">
+                            <a href="#" class="transition-all flex items-center gap-x-2">
+                                <svg class="w-5 h-5">
+                                    <use href="#shopping-bag"></use>
+                                </svg>
+                                دسته بندی
+                            </a>
+                            <svg class="w-3 h-3 arrow-submenu -rotate-90">
+                                <use href="#chevron-left"></use>
+                            </svg>
+                        </div>
+                        <div class="submenu hidden flex-col gap-y-3 mt-3 child:text-sm mr-7">
+                            {% for category in categories %}
+                            <a href="#">{{category.name}}</a>
+                            {% endfor %}
+                            <a href="#">همه محصولات</a>
+
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-x-2">
+                            <svg class="w-5 h-5">
+                                <use href="#phone"></use>
+                            </svg>
+                            تماس با ما
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-x-2">
+                            <svg class="w-5 h-5">
+                                <use href="#check"></use>
+                            </svg>
+                            درباره ما
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url "login" %}" class="flex items-center gap-x-2">
+                            <svg class="w-5 h-5">
+                                <use href="#user"></use>
+                            </svg>
+                            ورود | ثبت‌نام
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-MorabbaBold text-indigo-600">شاپیکس</a>
+
+            <a href="#" class="flex-center relative">
+                <svg class="size-6">
+                    <use href="#cart"></use>
+                </svg>
+                <span class="absolute -top-1 -right-1 flex h-4 w-4">
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-600 opacity-75"></span>
+                    <span
+                        class="relative inline-flex rounded-full h-4 w-4 bg-red-500 text-xs pt-1 flex-center text-white">2</span>
+                </span>
+            </a>
+        </nav>

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}شاپیکس | ورود به حساب کاربری {% endblock %}
+
+   
+{% block header %}
+    <!-- Header -->
+    <header class="relative w-full flex items-center justify-center overflow-hidden">
+        <!-- BG -->
+        <div
+            class="absolute top-20 left-20 w-[28rem] h-[28rem] bg-indigo-400 rounded-full mix-blend-multiply filter blur-[180px] opacity-25">
+        </div>
+        <div
+            class="absolute bottom-32 right-32 w-[28rem] h-[28rem] bg-pink-400 rounded-full mix-blend-multiply filter blur-[180px] opacity-25">
+        </div>
+        <div
+            class="absolute top-1/2 left-1/2 w-[30rem] h-[30rem] bg-blue-400 rounded-full mix-blend-multiply filter blur-[200px] opacity-15 -translate-x-1/2 -translate-y-1/2">
+        </div>
+
+        <!-- BG -->
+        <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-gray-50 to-transparent z-10"></div>
+
+        {% include "navbar.html" %}
+    </header>
+{% endblock %}
+
+    <!-- Main  -->
+{% block content %}
+    <div class="mt-36 flex items-center justify-center">
+      <div class="flex w-96 min-h-full flex-col justify-center px-6 py-10 lg:px-8 bg-white shadow-lg rounded-xl">
+               <div
+                    class="sm:mx-auto sm:w-full sm:max-w-sm font-DanaDemiBold text-indigo-600 flex items-center justify-center">
+                    <h2>ورود به حساب کاربری</h2>
+               </div>
+
+               <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                    <form action="{% url "login" %}" method="POST" class="space-y-6">
+                         {% csrf_token %}
+                         <div>
+                              <label for="username" class="block  font-DanaDemiBold text-gray-900">
+                                   نام کاربری
+                              </label>
+                              <div class="mt-2">
+                                   <input id="username" type="text" name="username"
+                                        class="block w-full rounded-lg bg-gray-100 px-3 py-2 text-sm md:text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
+                              </div>
+                         </div>
+                         <div>
+                              <label for="username" class="block  font-DanaDemiBold text-gray-900">
+                                   رمز عبور
+                              </label>
+                              <div class="mt-2">
+                                   <input id="" type="password" name="password"
+                                        class="block w-full rounded-lg bg-gray-100 px-3 py-2 text-sm md:text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
+                              </div>
+                         </div>
+                         <div>
+                              <button type="submit"
+                                   class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm md:text-base font-semibold text-white shadow-xs hover:bg-indigo-500 cursor-pointer">
+                                   وارد شوید
+                              </button>
+                         </div>
+                    </form>
+
+                    <p class="mt-8 text-center text-sm text-gray-500">
+                         حساب کاربری ندارید؟
+                         <a href="{% url "register" %}" class="font-DanaDemiBold text-indigo-600 hover:text-indigo-500">
+                              ثبت‌نام کنید
+                         </a>
+                    </p>
+               </div>
+          </div>
+     </div>
+{% endblock %}
+
+{% include "footer.html" %}

@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}شاپیکس | صفحه اصلی{% endblock %}
+
+   
+{% block header %}
+    <!-- Header -->
+    <header class="relative w-full h-screen flex items-center justify-center overflow-hidden">
+        <!-- BG -->
+        <div
+            class="absolute top-20 left-20 w-[28rem] h-[28rem] bg-indigo-400 rounded-full mix-blend-multiply filter blur-[180px] opacity-25">
+        </div>
+        <div
+            class="absolute bottom-32 right-32 w-[28rem] h-[28rem] bg-pink-400 rounded-full mix-blend-multiply filter blur-[180px] opacity-25">
+        </div>
+        <div
+            class="absolute top-1/2 left-1/2 w-[30rem] h-[30rem] bg-blue-400 rounded-full mix-blend-multiply filter blur-[200px] opacity-15 -translate-x-1/2 -translate-y-1/2">
+        </div>
+
+        <!-- BG -->
+        <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-gray-50 to-transparent z-10"></div>
+
+        {% include "navbar.html" %}
+        <!-- Header-->
+        <div class="relative z-10 text-center md:pt-20">
+            <div class="md:h-96 w-full">
+                <img src="{% static "./images/header.png" %}" alt="">
+            </div>
+            <h1 class="text-2xl md:text-4xl font-MorabbaBold pt-5">بهترین تجربه خرید موبایل</h1>
+            <p class="text-gray-600 mt-4 font-DanaDemiBold md:text-lg">انواع آیفون و جدیدترین گوشی‌ها با بهترین قیمت و
+                ضمانت اصلی</p>
+        </div>
+    </header>
+{% endblock %}
+
+    <!-- Main  -->
+{% block content %}
+        <!-- CATEGORIES -->
+        <section class="container md:mt-32">
+            <!-- ITEMS -->
+            <div
+                class="flex items-center justify-evenly lg:justify-between flex-wrap md:mt-10 child:mb-8 gap-x-4 md:gap-x-8 *:flex *:items-center *:flex-col *:duration-300 *:cursor-pointer *:gap-y-3">
+                <div>
+                    <div class="category_item">
+                        <div class="w-28 h-28">
+                            <img src="{% static "./images/category/airpods.png" %}" alt="">
+                        </div>
+                    </div>
+                    <a href="" class="font-DanaDemiBold text-xl">
+                        ایرپاد
+                    </a>
+                </div>
+                <div>
+                    <div class="category_item">
+                        <div class="w-28 h-28 ">
+                            <img src="{% static "./images/category/smartphone (1).png" %}" alt="">
+                        </div>
+                    </div>
+                    <a href="" class="font-DanaDemiBold text-xl">
+                        آیفون
+                    </a>
+                </div>
+                <div>
+                    <div class="category_item">
+                        <div class="w-28 h-28">
+                            <img src="{% static "./images/category/smartphone.png" %}" alt="">
+                        </div>
+                    </div>
+                    <a href="" class="font-DanaDemiBold text-xl">
+                        لوازم جانبی
+                    </a>
+                </div>
+                <div>
+                    <div class="category_item">
+                        <div class="w-28 h-28">
+                            <img src="{% static "./images/category/phone-case.png" %}" alt="">
+                        </div>
+                    </div>
+                    <a href="" class="font-DanaDemiBold text-xl">
+                        قاب
+                    </a>
+                </div>
+                <div>
+                    <div class="category_item">
+                        <div class="w-28 h-28">
+                            <img src="{% static "./images/category/smart-watch.png" %}" alt="">
+                        </div>
+                    </div>
+                    <a href="" class="font-DanaDemiBold text-xl">
+                        اپل واچ
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products -->
+        <section class="container my-32">
+            <!-- Product title -->
+            <div class="flex items-center justify-between mb-12">
+                <h2 class="relative text-2xl md:text-3xl font-MorabbaBold inline-block">
+                    جدید ترین محصولات
+                    <span
+                        class="absolute inset-0 -z-10 w-24 h-24 bg-blue-200 rounded-full blur-2xl opacity-40 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"></span>
+                </h2>
+                <a href="{% url "category" 'all' %}"
+                    class="flex items-center justify-center gap-x-.5 text-base md:text-lg font-DanaDemiBold transition-all text-blue-500 hover:text-blue-600">
+                    مشاهده همه
+                    <svg class="size-5 rotate-90">
+                        <use href="#chevron-down"></use>
+                    </svg>
+                </a>
+            </div>
+            <div
+                class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 lg:gap-10 *:h-90 *:bg-white  *:shadow *:rounded-2xl *:relative *:p-4">
+                <!-- Items -->
+                {% for product in products  %}
+                <div class="group">
+                    <!-- Sale Badge -->
+                    {% if product.discount > 0 %}
+                    <span
+                        class="absolute z-10 left-0 top-5 bg-red-300/30 text-rose-600 font-semibold text-sm pt-1 px-4 rounded-r-xl">
+                        OFF
+                    </span>
+                    {% endif %}
+                    <a href="#" class="flex items-center justify-center">
+                        <div class="h-55 w-48 object-cover flex items-center justify-center">
+                            <img class="group-hover:scale-105 delay-100 duration-300 transition-all"
+                                src="{{product.image.url}}" alt="">
+                        </div>
+                    </a>
+                    <div class="flex flex-col justify-between mt-4 h-24">
+                        <a href="{% url "product" product.id %}"
+                            class="hover:text-blue-600 duration-300 transition-all text-base font-DanaDemiBold line-clamp-1">
+                            {{product.name}}
+                        </a>
+                        <div class="flex items-end justify-between">
+                            <a href="{% url "product" product.id %}"
+                                class="size-9 shadow hover:bg-indigo-500 transition-all bg-indigo-600 rounded-xl flex items-center justify-center cursor-pointer">
+                                <svg class="size-5 text-gray-50">
+                                    <use href="#eye"></use>
+                                </svg>
+                            </a>
+                            <div class="flex flex-col items-end gap-y-1">
+                                
+                                <div class="flex items-center gap-x-1">
+                                    <p class="font-DanaDemiBold text-lg">{{ product.final_price|intcomma }}</p>
+                                    <span class="font-DanaMedium text-sm">تومان</span>
+                                </div>
+
+                                {% if product.discount > 0 %}
+                                <!-- قیمت اصلی + درصد تخفیف -->
+                                <div class="flex items-center gap-x-1 text-gray-600">
+                                    <del>{{ product.price|intcomma }}</del>
+                                    <span class="size-7 rounded-xl flex items-center justify-center text-white bg-red-500">
+                                        {{ product.discount }}%
+                                    </span>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+{% endblock %}
+
+{% include "footer.html" %}
+
+    
