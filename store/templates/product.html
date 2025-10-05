@@ -86,7 +86,7 @@
                                 </svg>
                                 افزودن به سبد خرید
                             </button>
-                            <a href="{% url "home" %}"
+                            <a href="{{ request.META.HTTP_REFERER|default:'/' }}"
                                 class="bg-gray-200 flex gap-1 cursor-pointer items-center  text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300">
                                 برگشت
                                  <svg class="size-5">
@@ -110,7 +110,8 @@
                 action: 'post'
             },
             success : function(json){
-                console.log(json);
+               document.getElementById('cart_quantity').
+                    textContent = json.qty
             },
 
             error: function(xhr,errmsg,err){
