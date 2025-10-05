@@ -79,7 +79,7 @@
                         </div>
 
                         <div class="flex space-x-4 mb-6">
-                            <button
+                            <button type="button" value="{{product.id}}" id="add-cart"
                                 class="bg-indigo-600 flex gap-2 items-center text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-indigo-700">
                                 <svg class="size-5">
                                     <use href="#cart"></use>
@@ -97,5 +97,31 @@
                     </div>
                 </div>
             </div>
+
+<script>
+    $(document).on('click' , '#add-cart' , function(e){
+        e.preventDefault()
+        $.ajax({
+            type : 'POST',
+            url: "{% url 'cart_add' %}",
+            data: {
+                product_id : $('#add-cart').val(),
+                csrfmiddlewaretoken : '{{ csrf_token }}',
+                action: 'post'
+            },
+            success : function(json){
+                console.log(json);
+            },
+
+            error: function(xhr,errmsg,err){
+
+            }
+        })
+
+
+    })
+</script>
 {% endblock %}
 {% include "footer.html" %}
+
+
