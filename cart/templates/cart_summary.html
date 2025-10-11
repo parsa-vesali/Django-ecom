@@ -67,7 +67,7 @@
                                         <svg class="w-4 h-4 increment text-green-600">
                                             <use href="#plus"></use>
                                         </svg>
-                                        <input type="number" name="customInput" id="customInput" min="1" max="20" value="1"
+                                        <input type="number" name="customInput" id="customInput" min="1" max="20" value="{% for k, v in quantities.items %}{% if k == product.id|slugify %}{{ v }}{% endif %}{% endfor %}"
                                             class="custom-input mr-8 text-lg bg-transparent">
                                         <svg class="w-4 h-4 decrement text-red-500">
                                             <use href="#minus"></use>
