@@ -1,5 +1,7 @@
- {% extends "base.html" %}
+{% extends "base.html" %}
 {% load static %}
+{% load humanize %}
+
 
 {% block title %}شاپیکس | سبد خرید {% endblock %}
 
@@ -93,7 +95,7 @@
                                         </li>
                                     </ul>
                                     <span class="flex items-center gap-x-1 text-gray-700 font-DanaMedium mt-4">
-                                        <p class="font-DanaMedium text-xl">{{product.price}}</p>
+                                        <p class="font-DanaMedium text-xl">{{product.final_price|intcomma}}</p>
                                         <p class="text-lg">تومان</p>
                                     </span>
                             
@@ -118,15 +120,19 @@
                 <ul class="*:flex *:items-center *:justify-between space-y-8">
                     <li>
                         <p>قیمت کالاها(۱)</p>
-                        <p class="flex gap-x-1 text-gray-600">۱۲۵,۰۰۰,۰۰۰ <span class="hidden xl:flex">تومان</span></p>
+                        <p class="flex gap-x-1 text-gray-600">0<span class="hidden xl:flex">تومان</span></p>
                     </li>
                     <li>
                         <p>تخفیف </p>
-                        <p class="font-DanaMedium text-gray-700">۵۰۰,۰۰۰ تومان  </p>
+                        <p class="font-DanaMedium text-gray-700">  
+                           0
+                        </p>
                     </li>
                     <li class="border-t-2 border-dashed border-gray-400 pt-8">
                         <p> مبلغ نهایی  :</p>
-                        <p>۱۱۹,۵۰۰,۰۰۰ تومان</p>
+                        <p>
+                            {{totals|intcomma}}
+                        </p>
                     </li>
                 </ul>
 
