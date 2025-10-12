@@ -36,3 +36,12 @@ class Cart():
     def get_quants(self):
         quantities = self.cart
         return quantities
+    
+
+    def delete(self,product):
+        product_id =str(product) 
+
+        if product_id in self.cart:
+            del self.cart[product_id]
+
+        self.session.modified = True

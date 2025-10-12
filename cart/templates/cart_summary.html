@@ -96,10 +96,12 @@
                                         <p class="font-DanaMedium text-xl">{{product.price}}</p>
                                         <p class="text-lg">تومان</p>
                                     </span>
-                                
-                                    <svg class=" flex sm:hidden absolute top-0 left-0 w-5 h-5">
+                            
+                                    <button class='delete-product' data-index='{{product.id}}'>
+                                    <svg class="flex absolute top-0 left-0 w-5 h-5">
                                         <use href="#close"></use>
                                     </svg>  
+                                    </button>
                                 </div>
                             </div>   
                         </div>
@@ -140,5 +142,27 @@
      </section>
      </div>
 
+
+<script>
+    $(document).on('click' , '.delete-product' , function(e){
+        e.preventDefault()
+        $.ajax({
+            type : 'POST',
+            url: "{% url 'cart_delete' %}",
+            data: {
+                product_id : $(this).data('index'),
+                csrfmiddlewaretoken : '{{ csrf_token }}',
+                action: 'post'
+            },
+            success : function(json){
+              location.reload()
+            },
+            error: function(xhr,errmsg,err){
+            }
+        })
+
+
+    })
+</script>
 {% endblock %}
 {% include "footer.html" %}
