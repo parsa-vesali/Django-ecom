@@ -5,9 +5,30 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .forms import SignUpForm , UpdateUserFrom
+from .forms import SignUpForm , UpdateUserFrom , ChangePasswordForm
 
-
+def update_password(request):
+     if request.user.is_authenticated:
+          current_user = request.user
+          if request.method == 'POST':
+               form = ChangePasswordForm(current_user , request.POST)
+               if form.is_valid():
+                    form.save()
+                    messages.success(request,'تغییرات شما با موفقیت ذخیره شد.')
+                    login(request, current_user)
+                    return redirect('update_user')
+               else:
+                    for error in list(form.errors.values()):
+                         messages.error(request,'مشکلی پیش آمده است لطفا دوباره تلاش کنید.') 
+                         return redirect('update_password')
+          else:
+               form = ChangePasswordForm(current_user)
+               return render(request,'update_password.html' , {"form" : form})
+     else :
+          messages.error(request , 'عدم دسترسی')
+          return redirect('home')
+     
+     
 def update_user(request):
      if request.user.is_authenticated:
           current_user = User.objects.get(id=request.user.id)
@@ -24,7 +45,6 @@ def update_user(request):
           return redirect('home')
 
      return render(request , 'update_user.html' , {})
-
 
 def category(request, foo):
     foo = foo.replace('-', ' ')
