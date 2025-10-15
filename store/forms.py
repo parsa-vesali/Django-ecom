@@ -1,7 +1,60 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm , UserChangeForm , SetPasswordForm
 from django.contrib.auth.models import User
+from .models import Profile
 
+class UserInfoForm(forms.ModelForm):
+   phone = forms.CharField(
+    label='',
+    widget=forms.TextInput(attrs={
+        'class': '',
+        'placeholder': 'شماره تلفن'
+    }),
+    required=False
+    )
+   address1 = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'class': '',
+            'placeholder': 'آدرس اول'
+        }),
+        required=False
+    )
+   address2 = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'class': '',
+            'placeholder': 'آدرس دوم'
+        }),
+        required=False
+    )
+   city = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'class': '',
+            'placeholder': 'شهر'
+        }),
+        required=False
+    )
+   zipcode = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'class': '',
+            'placeholder': 'کد پستی'
+        }),
+        required=False
+    )
+   country = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'class': '',
+            'placeholder': 'کشور'
+        }),
+        required=False
+    )
+   class Meta:
+        model = Profile
+        fields = ('phone', 'address1', 'address2', 'city', 'zipcode', 'country')
 
 class ChangePasswordForm(SetPasswordForm):
     class Meta : 
@@ -56,7 +109,8 @@ class UpdateUserFrom(UserChangeForm):
         widget=forms.TextInput(attrs={
             'class': 'block w-full rounded-lg bg-gray-100 px-3 py-2 text-sm md:text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600',
             'placeholder': 'ایمیل'
-        })
+        }),
+        required=False
     )
 
     class Meta:
