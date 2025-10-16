@@ -21,7 +21,6 @@ def update_info(request):
           messages.error(request , 'عدم دسترسی')
           return redirect('home')
 
-
 def update_password(request):
      if request.user.is_authenticated:
           current_user = request.user
@@ -60,30 +59,43 @@ def update_user(request):
 
      return render(request , 'update_user.html' , {})
 
-def category(request, foo):
+def category(request, foo=None):
+    if request.method == 'POST':
+        searched = request.POST.get('searched', '').strip()
+        if searched:
+            products = Product.objects.filter(name__icontains=searched)
+            total = products.count()
+            if total == 0:
+                messages.error(request, 'محصول مورد نظر یافت نشد!')
+                return redirect('category', foo='all')
+            category_info = {"name": f"نتیجه جستجو برای: {searched}"}
+            return render(request, 'category.html', {
+                "products": products,
+                "category": category_info,
+                "total": total
+            })
+        else:
+            return redirect('category', foo='all')
+
     foo = foo.replace('-', ' ')
     if foo == "all":
         products = Product.objects.all()
         total = products.count()
         category = {"name": "همه محصولات"}
-        return render(request, 'category.html', {
-            "products": products,
-            "category": category ,
-            "total": total
-        })
     else:
         try:
             category = Category.objects.get(name=foo)
             products = Product.objects.filter(category=category)
             total = products.count()
-            return render(request, 'category.html', {
-                "products": products,
-                "category": category,
-                "total": total
-            })
         except Category.DoesNotExist:
             messages.error(request, "دسته‌بندی مورد نظر یافت نشد.")
             return redirect('home')
+
+    return render(request, 'category.html', {
+        "products": products,
+        "category": category,
+        "total": total
+    })
 
 def product(request,pk):
      product = Product.objects.get(id=pk)
