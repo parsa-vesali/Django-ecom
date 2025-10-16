@@ -102,7 +102,6 @@ class SignUpForm(UserCreationForm):
             'placeholder': 'تایید رمز عبور'
         })
 
-
 class UpdateUserFrom(UserChangeForm):
     email = forms.EmailField(
         label="",
