@@ -6,22 +6,33 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .forms import SignUpForm , UpdateUserFrom , ChangePasswordForm , UserInfoForm
+from payment.forms import shippingForm
+from payment.models import ShippingAddress
 import json
 from cart.cart import Cart
 
-def update_info(request):
-     if request.user.is_authenticated:
-          current_user = Profile.objects.get(user__id=request.user.id)
-          form = UserInfoForm(request.POST or None , instance=current_user)
-          if form.is_valid():
-               form.save()
 
-               messages.success(request,'تغییرات شما با موفقیت ذخیره شد.')
-               return redirect('home')
-          return render(request,'update_info.html' , {'form': form})
-     else :
-          messages.error(request , 'عدم دسترسی')
-          return redirect('home')
+def update_info(request):
+    if not request.user.is_authenticated:
+        messages.error(request, 'عدم دسترسی')
+        return redirect('home')
+
+    current_user = Profile.objects.get(user=request.user)
+    shipping_user, created = ShippingAddress.objects.get_or_create(user=request.user)
+
+    form = UserInfoForm(request.POST or None, instance=current_user)
+    shipping_form = shippingForm(request.POST or None, instance=shipping_user)
+
+    if form.is_valid() and shipping_form.is_valid():
+        form.save()
+        shipping_form.save()
+        messages.success(request, 'تغییرات شما با موفقیت ذخیره شد.')
+        return redirect('home')
+
+    return render(request, 'update_info.html', {
+        'form': form,
+        'shipping_form': shipping_form
+    })
 
 def update_password(request):
      if request.user.is_authenticated:
@@ -54,7 +65,7 @@ def update_user(request):
                login(request, current_user)
                messages.success(request,'تغییرات شما با موفقیت ذخیره شد.')
                return redirect('home')
-          return render(request,'update_user.html' , {'user_form': user_form})
+          return render(request,'update_user.html' , {'user_form': user_form })
      else :
           messages.error(request , 'عدم دسترسی')
           return redirect('home')

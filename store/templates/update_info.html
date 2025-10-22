@@ -35,16 +35,33 @@
                </div>
 
                <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form action="{% url 'update_info' %}" method="POST">
-                {% csrf_token %}
-                {{ form.phone }}
-                {{ form.address1 }}
-                {{ form.address2 }}
-                {{ form.city }}
-                {{ form.zipcode }}
-                {{ form.country }}
-                <button type="submit">ذخیره</button>
+          <form action="{% url 'update_info' %}" method="POST" class="update-info-form">
+    {% csrf_token %}
+
+    <h3>اطلاعات کاربری</h3>
+                <div class="user-info">
+                    {{ form.phone }}
+                    {{ form.address1 }}
+                    {{ form.address2 }}
+                    {{ form.city }}
+                    {{ form.zipcode }}
+                    {{ form.country }}
+                </div>
+
+                <h3>آدرس ارسال (Shipping)</h3>
+                <div class="shipping-info">
+                    {{ shipping_form.shipping_full_name }}
+                    {{ shipping_form.shipping_email }}
+                    {{ shipping_form.shipping_address1 }}
+                    {{ shipping_form.shipping_address2 }}
+                    {{ shipping_form.shipping_city }}
+                    {{ shipping_form.shipping_zipcode }}
+                    {{ shipping_form.shipping_country }}
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">ذخیره</button>
             </form>
+
 
 
             </div>
