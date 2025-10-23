@@ -1,6 +1,88 @@
 from django import forms
 from .models import ShippingAddress
 
+class PaymentForms(forms.Form):
+    card_name = forms.CharField(
+    label='',
+    widget=forms.TextInput(attrs={
+        'class': '',
+        'placeholder': 'نام'
+    }),
+    required=False
+    )
+    card_number = forms.CharField(
+    label='',
+    widget=forms.TextInput(attrs={
+        'class': '',
+        'placeholder': 'شماره'
+    }),
+    required=False
+    )
+    card_exp_date = forms.CharField(
+    label='',
+    widget=forms.TextInput(attrs={
+        'class': '',
+        'placeholder': ''
+    }),
+    required=False
+    )
+    card_cvv_number = forms.CharField(
+    label='',
+    widget=forms.TextInput(attrs={
+        'class': '',
+        'placeholder': ''
+    }),
+    required=False
+    )
+    card_address1 = forms.CharField(
+    label='',
+    widget=forms.TextInput(attrs={
+        'class': '',
+        'placeholder': ''
+    }),
+    required=False
+    )
+    card_address2 = forms.CharField(
+    label='',
+    widget=forms.TextInput(attrs={
+        'class': '',
+        'placeholder': ''
+    }),
+    required=False
+    )
+    card_city = forms.CharField(
+    label='',
+    widget=forms.TextInput(attrs={
+        'class': '',
+        'placeholder': ''
+    }),
+    required=False
+    )
+    card_state = forms.CharField(
+    label='',
+    widget=forms.TextInput(attrs={
+        'class': '',
+        'placeholder': ''
+    }),
+    required=False
+    )
+    card_zipcode = forms.CharField(
+    label='',
+    widget=forms.TextInput(attrs={
+        'class': '',
+        'placeholder': ''
+    }),
+    required=False
+    )
+    card_country = forms.CharField(
+    label='',
+    widget=forms.TextInput(attrs={
+        'class': '',
+        'placeholder': ''
+    }),
+    required=False
+    )
+    
 
 class shippingForm(forms.ModelForm):
    shipping_full_name = forms.CharField(

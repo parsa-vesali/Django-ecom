@@ -2,7 +2,7 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %}شاپیکس | پرداخت  {% endblock %}
+{% block title %}شاپیکس | صورت حساب  {% endblock %}
 
    
 {% block header %}
@@ -48,23 +48,15 @@
                     {% endfor %}
                </div>
 
-               <h3>آدرس ارسال (Shipping)</h3>
-                <form action='{% url "billing_info" %}' method='POST'>
-                    {% csrf_token %}
+               <h3>صورت حساب(Shipping)</h3>
+                <form action='{% url "billing_info" %}' methode='POST'>
                     <div class="shipping-info">
-                    {{ shipping_form.shipping_full_name }}
-                    {{ shipping_form.shipping_email }}
-                    {{ shipping_form.shipping_address1 }}
-                    {{ shipping_form.shipping_address2 }}
-                    {{ shipping_form.shipping_city }}
-                    {{ shipping_form.shipping_zipcode }}
-                    {{ shipping_form.shipping_country }}
-                      
+                    {{ shipping_info.shipping_email }}
                 </div>
-                <button type='submit'  href='{% url "billing_info" %}'>
-                    پرداخت نهایی
-                </button>
+                
                 </form>
+
+                {{billing_form}}
        </div>
      </div>
 {% endblock %}
