@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}شاپیکس | پرداخت  {% endblock %}
+
+   
+{% block header %}
+    <!-- Header -->
+    <header class="relative w-full flex items-center justify-center overflow-hidden">
+        <!-- BG -->
+        <div
+            class="absolute top-20 left-20 w-[28rem] h-[28rem] bg-indigo-400 rounded-full mix-blend-multiply filter blur-[180px] opacity-25">
+        </div>
+        <div
+            class="absolute bottom-32 right-32 w-[28rem] h-[28rem] bg-pink-400 rounded-full mix-blend-multiply filter blur-[180px] opacity-25">
+        </div>
+        <div
+            class="absolute top-1/2 left-1/2 w-[30rem] h-[30rem] bg-blue-400 rounded-full mix-blend-multiply filter blur-[200px] opacity-15 -translate-x-1/2 -translate-y-1/2">
+        </div>
+
+        <!-- BG -->
+        <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-gray-50 to-transparent z-10"></div>
+
+        {% include "navbar.html" %}
+    </header>
+{% endblock %}
+
+    <!-- Main  -->
+{% block content %}
+    <div class="mt-36 flex items-center justify-center">
+      <div class="flex w-96 min-h-full flex-col justify-center px-6 py-10 lg:px-8 bg-white shadow-lg rounded-xl">
+               <div
+                    class="sm:mx-auto sm:w-full sm:max-w-sm font-DanaDemiBold text-indigo-600 flex items-center justify-center">
+                    <h2>پرداخت نهایی</h2>
+               </div>
+
+               <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                    {% for product in cart_products  %}
+                         {{product.name}}:
+                         {{product.final_price|intcomma}}
+‍‍                         {% for k, v in quantities.items %}
+                               {% if k == product.id|slugify %}{{ v }}
+                               {% endif %}
+                         {% endfor %}
+
+                         {{totals|intcomma}}
+                    {% endfor %}
+               </div>
+
+               <h3>آدرس ارسال (Shipping)</h3>
+                <div class="shipping-info">
+                    {{ shipping_form.shipping_full_name }}
+                    {{ shipping_form.shipping_email }}
+                    {{ shipping_form.shipping_address1 }}
+                    {{ shipping_form.shipping_address2 }}
+                    {{ shipping_form.shipping_city }}
+                    {{ shipping_form.shipping_zipcode }}
+                    {{ shipping_form.shipping_country }}
+                </div>
+       </div>
+     </div>
+{% endblock %}
+
+{% include "footer.html" %}
